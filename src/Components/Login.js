@@ -3,15 +3,14 @@ import Header from './Header';
 import { checkValidData } from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addUser, removeUser } from '../utils/userSlice';
+import { addUser } from '../utils/userSlice';
+import { USER_AVATAR } from '../utils/constants';
 
 const Login = () => {
     const dispatch = useDispatch();
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
-    const navigate = useNavigate();
     const email = useRef(null);
     const password = useRef(null);
     const name = useRef(null);
@@ -34,8 +33,9 @@ const Login = () => {
                 .then((userCredential) => {
                     // Signed up 
                     const user = userCredential.user;
-                    updateProfile(auth.currentUser, {
-                        displayName: name?.current.value, photoURL: "https://lh3.googleusercontent.com/a/ACg8ocLVnZxLmhpvQlf1WisV_M8vlnv0P7VYD4yetjPi_KcEhvNfdg5-=s288-c-no"
+                    console.log('usersignup', user);
+                    updateProfile(user, {
+                        displayName: name?.current.value, photoURL: USER_AVATAR,
                     }).then(() => {
                         // Profile updated!
                         //updtae the store after updating profile
@@ -46,8 +46,6 @@ const Login = () => {
                               email: email, 
                               displayName: displayName,
                               photoURL :photoURL }));
-                        navigate('/browse')
-
                     }).catch((error) => {
                         setErrorMessage(error)
                     });
@@ -67,7 +65,6 @@ const Login = () => {
                     // Signed in 
                     const user = userCredential.user;
                     console.log(user);
-                    navigate('/browse');
                     // ...
                 })
                 .catch((error) => {

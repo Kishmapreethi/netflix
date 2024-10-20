@@ -16,7 +16,11 @@
 -Header
 -Implemented signout
 -updated profile after signup
-
+-If user is not loggedin Redirect /brwse to login Page and viceversa
+-Unsubscribe to onAuthStateChanged
+-Add hardcoded values in constant files
+-Registered for TMDB & create an app and access token
+-get data from tmdb now playing movie api
 
 
 # Features

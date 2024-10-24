@@ -33,6 +33,9 @@
 -image CDN URL
 -Made the browse page amazing with tailwind
 -usePopularMovies,useTopRatedMovies custom hooks
+-GPT search Features
+-search button
+
 
 
 # Features
